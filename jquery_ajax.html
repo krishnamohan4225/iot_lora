@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+    $.ajax({
+      url: 'https://domain.com',
+      type: 'GET',
+      data: {
+        format: 'json'
+      },
+      headers: {
+      Authorization: "Basic userid:password"
+  },
+      success: function(response) {
+          var data = response.dataFrame;
+          alert(data);
+          $("#dataFrame").text(data);
+      },
+      error: function() {
+        $('#errors').text("There was an error processing your request. Please try again.");
+      }
+    });
+});
+    </script>
+</head>
+<body>
+       <p id="dataFrame"></p>
+</body>
+
+</html>
+
+
