@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta http-equiv="refresh" content="10">
+</head>
+<body>
+    <script>
+        window.onload = userAction();
+        function userAction() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(xhttp.responseText);
+                    var dataFrame = response.dataFrame;
+                    dataFrame = base64toHEX(dataFrame);//converting base64 to hexaecimal
+                    var res = dataFrame.substr(0, 2);
+                    var oilTemp =hexToDec ( dataFrame.substr(2, 2));//HexToDec for converting hex to decimal
+                    var WindingTemp =hexToDec( dataFrame.substr(4, 2));
+                    var AmbientTemp =hexToDec( dataFrame.substr(6, 2));
+                    var Rcurrent = dataFrame.substr(10, 8);
+                   //assgning data to html controls
+                    document.getElementById("data").innerHTML = dataFrame;
+                    document.getElementById("id").innerHTML = res;
+                    document.getElementById("oilTemp").innerHTML = oilTemp;
+                    document.getElementById("WTemp").innerHTML = WindingTemp;
+                    document.getElementById("ATemp").innerHTML = AmbientTemp;
+               }
+            };
+            xhttp.open("GET", "", true);//replace ur api here
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Authorization", "Basic a3Jpc2huYTprcmlzaG5h");// replace ur userid:password in base64 format
+            xhttp.send();
+        }
+        // For converting base64 data to hexadecimal
+          function base64toHEX(base64) {
+                var raw = atob(base64);
+                var HEX = '';
+                for (i = 0; i < raw.length; i++) {
+                    var _hex = raw.charCodeAt(i).toString(16)
+                    HEX += (_hex.length == 2 ? _hex : '0' + _hex);
+                }
+                return HEX.toUpperCase();
+        }
+        //HexToDec for converting hexadecimal data to decimal
+          function hexToDec(hex) {
+              return hex.toLowerCase().split('').reduce((result, ch) =>
+                  result * 16 + '0123456789abcdefgh'.indexOf(ch), 0);
+          }
+    </script>
+    <table align="center">
+        <tr>
+            <td>DataFrame:<span id="data"></span></td>
+        </tr>
+        <tr>
+            <td>ID:<span id="id"></span></td>
+        </tr>
+        <tr>
+
+            <td>Oil Temperature:<span id="oilTemp"></span></td>
+        </tr>
+        <tr>
+
+            <td>Winding Temperature:<span id="WTemp"></span></td>
+        </tr>
+        <tr>
+            <td>Ambient Temperature:<span id="ATemp"></span></td>
+        </tr>
+    </table>
+</body>
+</html>
