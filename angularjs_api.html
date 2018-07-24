@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+        table, th, td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+            table tr:nth-child(odd) {
+                background-color: #f1f1f1;
+            }
+
+            table tr:nth-child(even) {
+                background-color: #ffffff;
+            }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+<body>
+        <div ng-app="myApp" ng-controller="myCtrl">
+            <h2> Smart City (lora device information)</h2>
+            <table>
+                <tr>
+                    <td>
+                        device id
+                    </td>
+                    <td>
+                        {{names.id}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        device time stamp
+                    </td>
+                    <td>{{names.timestamp}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        data frame
+                    </td>
+                    <td id="dataframa">{{decodedFrame}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        device fcnt
+                    </td>
+                    <td>{{names.fcnt}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        registraion status
+                    </td>
+                    <td>{{names.port}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        expiry time uplink
+                    </td>
+                    <td>{{names.rssi}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        snr
+                    </td>
+                    <td>{{names.snr}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        sf used
+                    </td>
+                    <td>{{names.sf_used}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        decrypted status
+                    </td>
+                    <td>{{names.decrypted}}</td>
+                </tr>
+
+            </table>
+        </div>
+        <script>
+            var app = angular.module('myApp', []);
+            app.controller('myCtrl', function ($scope, $http) {
+                $http.get('https://xyz.com', {
+                    headers: { 'Authorization': 'Basic a3Jpc2huYTprcmlzaG5h' }
+                })
+                   .then(function (response) {
+                       $scope.names = response.data;
+                       $scope.decodedFrame = atob($scope.names.dataFrame)
+                });
+            });
+        </script>
+    </body>
+
+</html>
