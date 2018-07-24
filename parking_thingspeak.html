@@ -1,0 +1,178 @@
+﻿<html>
+<head>
+    <meta http-equiv="refresh" content="5" />
+    <link href="~/css/box.css" rel="stylesheet" />
+    <style>
+        div {
+            margin: 0 0 0.75em 0;
+        }
+    
+        input[type="radio"] {
+            display: none;
+        }
+    
+            input[type="radio"] + label {
+                color: #292321;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+            }
+    
+                input[type="radio"] + label span {
+                    display: inline-block;
+                    width: 19px;
+                    height: 19px;
+                    margin: -1px 4px 0 0;
+                    vertical-align: middle;
+                    cursor: pointer;
+                    -moz-border-radius: 50%;
+                    border-radius: 50%;
+                }
+    
+                input[type="radio"] + label span {
+                    background-color: red;
+                    border: 1px solid black;
+                }
+    
+            input[type="radio"]:checked + label span {
+                background-color: forestgreen;
+                border: 1px solid black;
+            }
+    
+            input[type="radio"] + label span,
+            input[type="radio"]:checked + label span {
+                -webkit-transition: background-color 0.4s linear;
+                -o-transition: background-color 0.4s linear;
+                -moz-transition: background-color 0.4s linear;
+                transition: background-color 0.4s linear;
+            }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+        $.ajax({
+        
+          url: 'https://api.thingspeak.com/channels/542500/fields/field1/last?api_key=VOBE7J6JF20BOK8Rs',
+          type: 'GET',
+          data: {
+            format: 'json'
+          },
+          success: function(response) {
+             if  (response.field1 < 50  )
+             {
+                $("#field1").text("car is parked");
+               
+                $('#parking_slot').css({ fill: "red" });
+             }
+             else   {
+                $("#field1").text("car is not parked");
+                $('#parking_slot').css({ fill: "red" });
+              
+             }
+    
+         
+          },
+          error: function() {
+            $('#errors').text("There was an error processing your request. Please try again.");
+          }
+        });
+    });
+        </script>
+</head>
+<style>
+    div {
+        margin: 0 0 0.75em 0;
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+        input[type="radio"] + label {
+            color: #292321;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+            input[type="radio"] + label span {
+                display: inline-block;
+                width: 19px;
+                height: 19px;
+                margin: -1px 4px 0 0;
+                vertical-align: middle;
+                cursor: pointer;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+            }
+            input[type="radio"] + label span {
+                background-color: red;
+                border: 1px solid black;
+            }
+        input[type="radio"]:checked + label span {
+            background-color: forestgreen;
+            border: 1px solid black;
+        }
+        input[type="radio"] + label span,
+        input[type="radio"]:checked + label span {
+            -webkit-transition: background-color 0.4s linear;
+            -o-transition: background-color 0.4s linear;
+            -moz-transition: background-color 0.4s linear;
+            transition: background-color 0.4s linear;
+        }
+</style>
+<div class="container">
+    <h2 align="center">Innovative Parking Solution</h2>
+    <table style="border-collapse: collapse; width: 97.5643%;" height="443" border="1">
+        <tbody>
+            <tr>
+                <td style="width: 33.3333%; text-align: center;">
+                    <svg height="100" width="100">
+                        <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="green" />
+                    </svg>
+                </td>
+                <td rowspan="3"></td>
+                <td style="width: 33.3333%; text-align: center;">
+                    <svg height="100" width="100">
+                        <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="green" />
+                    </svg>
+                </td>
+            </tr>
+            <tr><td style="width: 33.3333%; text-align: center;">
+            <svg height="100" width="100">
+                <circle id="parking_slot" cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="green" />
+            </svg>
+             <p style="text-align:center;color:black">6.34 pm</p>
+               </td>
+                <td style="width: 33.3333%; text-align: center;">
+                    <svg height="100" width="100">
+                        <circle id="parking_slot_old" cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="green" />
+                    </svg>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 33.3333%; text-align: center;">
+                    <svg height="100" width="100">
+                        <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="green" />
+                    </svg>
+                </td>
+                <td style="width: 33.3333%; text-align: center;">
+                    <svg height="100" width="100">
+                        <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="green" />
+                    </svg>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <input type="radio" checked="checked" id="radio01" name="radio" disabled="disabled" />
+        <label for="radio01"><span></span>Vacant</label>
+        <input type="radio" id="radio02" name="radio" disabled="disabled" />
+        <label for="radio02"><span></span>Parking</label>
+    </div>
+
+
+
+</div>
+<h1 id="field1"></h1>
+</html>
+
+
+
