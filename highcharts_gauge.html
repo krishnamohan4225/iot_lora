@@ -26,13 +26,13 @@
         var data;
         $(document).ready(function () {
             $.ajax({
-                url: 'https://data.iot.tatacommunications.com/rest/nodes/0000ACFFFE30E3DD/payloads/ul/latest',
+                url: 'https:/domainname/[deviceid]/payloads/ul/latest',
                 type: 'GET',
                 data: {
                     format: 'json'
                 },
                 headers: {
-                    Authorization: "Basic a2VybmVsc3BoZXJlOmtlcm5lbHNwaGVyZQ=="
+                    Authorization: "Basic a2VybmVsc3B=="
                 },
                 success: function (response) {
                     data = response.dataFrame;
