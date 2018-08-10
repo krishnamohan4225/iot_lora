@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Transformer Readings</title>
+    <title>Document</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -16,115 +17,106 @@
         window.onload = getddata();
         function getddata() {
             var xmlhttp = new XMLHttpRequest();
-           
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     var Readings = JSON.parse(xmlhttp.responseText);
                     //jquery data table - start
                     $(document).ready(function () {
                         $('#example').DataTable({
-                            columnDefs: [{
-                                "targets": 1,
-                                "render": function (data, type, row, meta) {
-                                 var hexvalue =base64toHEX(data);
-                                 var deviceid= hexToDec(hexvalue.substr(1,1));
-                                 var oil_temp= hexToDec(hexvalue.substr(2,2));
-                                 var winding_temp= hexToDec(hexvalue.substr(4,2));
-                                 var ambient_temp= hexToDec(hexvalue.substr(6,2));
-                                 return 'oil temp: ' + oil_temp + ', Winding Temp: ' + winding_temp + ', Ambient Temp: '+ambient_temp ;
-                                }
-                            },
-                            {
-                                "targets": 0,
-                                "render": function (data, type, row, meta) {
-                                var updDate=  UtcToIst(data).toLocaleDateString();
-                                var updTime=  UtcToIst(data).toLocaleTimeString();
-                                var updDateTime=updDate + ", " + updTime;
-                                return  updDateTime ;
-                            }
-                            }],
-                            
-
                             data: Readings,
-                            columns: [{
-                                "data": "timestamp"
-                            }, {
-                                "data": "dataFrame"
-                            }, 
-                            {
-                                "data": "fcnt"
-                            }, {
-                                "data": "freq"
-                            }, {
-                                "data": "rssi"
-                            }, {
-                                "data": "snr"
-                            }, {
-                                "data": "sf_used"
-                            }, {
-                                "data": "id"
-                            }, {
-                                "data": "dr_used"
-                            }, {
-                                "data": "decrypted"
-                            }],
-                            order:[]
-                            
+                            columns: [
+                                {
+                                    data: 'timestamp', title: 'timestamp',
+                                    render: function (data) {
+                                        var updDate = UtcToIst(data).toLocaleDateString();
+                                        var updTime = UtcToIst(data).toLocaleTimeString();
+                                        var updDateTime = updDate + ", " + updTime;
+                                        return updDateTime;
+                                    }
+                                },
 
+                                {
+                                    data: 'dataFrame', title: 'deviceid',
+                                    render: function (data) {
+                                        var hexvalue = base64toHEX(data);
+                                        return hexToDec(hexvalue.substr(1, 1));
+                                    }
+                                },
+
+
+                                {
+                                    data: 'fcnt', title: 'FCNT',
+                                    render: function (data) {
+                                        return data;
+                                    }
+                                },
+
+                                {
+                                    data: 'dataFrame', title: 'Oil temp',
+                                    render: function (data) {
+                                        var hexvalue = base64toHEX(data);
+                                        return hexToDec(hexvalue.substr(2, 2));
+                                    }
+                                },
+                                {
+                                    data: 'dataFrame', title: 'Winding temp',
+                                    render: function (data) {
+                                        var hexvalue = base64toHEX(data);
+                                        return hexToDec(hexvalue.substr(4, 2));
+                                    }
+                                },
+                                {
+                                    data: 'dataFrame', title: 'Ambient temp',
+                                    render: function (data) {
+                                        var hexvalue = base64toHEX(data);
+                                        return hexToDec(hexvalue.substr(6, 2));
+                                    }
+                                }
+                            ],
+                            order: [2]
                         });
                     });
                     //data table code -close
 
                 }
             };
-            xmlhttp.open("GET", "api", true);
-            xmlhttp.setRequestHeader("Authorization", "Basic userid:password");
+            xmlhttp.open("GET", "https:/[tcl_domain_name]/[deviceid]/payloads/ul", true);
+            xmlhttp.setRequestHeader("Authorization", "Basic a2Vybm");
             xmlhttp.setRequestHeader("Content-type", "Application/json");
             xmlhttp.send();
-
         }
-       //HexToDec for converting hexadecimal data to decimal
-       function base64toHEX(base64) {
-                var raw = atob(base64);
-                var HEX = '';
-                for (i = 0; i < raw.length; i++) {
-                    var _hex = raw.charCodeAt(i).toString(16)
-                    HEX += (_hex.length == 2 ? _hex : '0' + _hex);
-                }
-                return HEX.toUpperCase();
+        //HexToDec for converting hexadecimal data to decimal
+        function base64toHEX(base64) {
+            var raw = atob(base64);
+            var HEX = '';
+            for (i = 0; i < raw.length; i++) {
+                var _hex = raw.charCodeAt(i).toString(16)
+                HEX += (_hex.length == 2 ? _hex : '0' + _hex);
+            }
+            return HEX.toUpperCase();
         }
         function hexToDec(hex) {
-              return hex.toLowerCase().split('').reduce((result, ch) =>
-                  result * 16 + '0123456789abcdefgh'.indexOf(ch), 0);
-          }
+            return hex.toLowerCase().split('').reduce((result, ch) =>
+                result * 16 + '0123456789abcdefgh'.indexOf(ch), 0);
+        }
 
-          function UtcToIst(data) {
+        function UtcToIst(data) {
             var dt = new Date(data);
             return dt;
-              
-          }
-
-
-
+        }
     </script>
     <p id="data"></p>
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>timestamp</th>
-                <th>dataFrame</th>
-                <th>fcnt</th>
-                <th>freq</th>
-                <th>rssi</th>
-                <th>snr</th>
-                <th>sf_used</th>
-                <th>id</th>
-                <th>dr_used</th>
-                <th>decrypted</th>
+                <th>Time</th>
+                <th>Device id </th>
+                <th>FCNT </th>
+                <th>Oil Tempreture</th>
+                <th>Winding Temperature</th>
+                <th>Ambient Temperature</th>
             </tr>
         </thead>
     </table>
-
 </body>
-
 </html>
