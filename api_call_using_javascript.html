@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div align="center">
+        <table border="1">
+            <tr>
+                <td>USER ID : <span id="demo"></span></td>
+            </tr>
+            <tr>
+                    <td>ID : <span id="iddata"></span></td>
+                </tr>
+                <tr>
+                        <td>ID : <span id="title"></span></td>
+                    </tr>
+                    <tr>
+                     <td>Completed : <span id="completionStatus"></span></td>
+                 </tr>
+        </table>
+    </div>
+    <script>
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(xhttp.responseText);
+            var userId = response.userId;
+            var iddata = response.id;
+            var title = response.title;
+            var completionStatus = response.completed;
+            document.getElementById("demo").innerHTML=userId;
+            document.getElementById("iddata").innerHTML=iddata;
+            document.getElementById("title").innerHTML=title;
+            document.getElementById("completionStatus").innerHTML=completionStatus;
+    }
+};
+xhttp.open("GET", "https://jsonplaceholder.typicode.com/todos/1", true);
+xhttp.send();
+    </script>
+</body>
+</html>
