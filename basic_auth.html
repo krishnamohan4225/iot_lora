@@ -14,8 +14,8 @@ function loadXMLDoc() {
       this.responseText;
     }
   };
-  xhttp.open("GET", "https://data.iot.tatacommunications.com/rest/nodes/0000ACFFFE30E3DD/payloads/ul/latest", true);
-  xhttp.setRequestHeader('Authorization','Basic ' + 'a2VybmVsc3BoZXJlOmtlcm5lbHNwaGVyZQ==');
+  xhttp.open("GET", "https://rest/nodes/0000ACFFFE30E3DD/payloads/ul/latest", true);
+  xhttp.setRequestHeader('Authorization','Basic ' + 'a2VybmVsc3BoZXJlOm==');
   xhttp.send();
 }
 loadXMLDoc();
