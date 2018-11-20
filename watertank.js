@@ -1,5 +1,5 @@
-var data= base64toAscii("AA8OJAEA",28.5)
-function base64toHEX(base64,max) {
+var data= base64toAscii("AA8OJAEA",28.5)//base 64 data and total tank height from sensor to tank bottom
+function base64toAscii(base64,max) {
                 var raw = atob(base64);
                 var HEX = '';
                 for (i = 0; i < raw.length; i++) {
