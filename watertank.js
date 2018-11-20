@@ -1,3 +1,4 @@
+//https://jsfiddle.net/krishnakernel/169gv5as/2/
 var data= base64toAscii("AA8OJAEA",28.5)//base 64 data and total tank height from sensor to tank bottom
 function base64toAscii(base64,max) {
                 var raw = atob(base64);
@@ -10,7 +11,7 @@ function base64toAscii(base64,max) {
                 var inches = hex.toLowerCase().split('').reduce((result, ch) =>
                   result * 16 + '0123456789abcdefgh'.indexOf(ch), 0);
                  var feet = inches/12; //data in feet
-                 var filled = max - feet; //data in inches
+                 var filled = max - feet;
                  filled = filled.toFixed(2);
                 return filled;
         }
