@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>water tank trend</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+</head>
+<body>
+    <div id="container" style="height:500px"></div>
+    <script>
+        getData();
+        function getData() {
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var dataSet = JSON.parse(xhttp.responseText);//deserialization
+                    var labels = dataSet.map(function (e) {
+                         return parseFloat(base64toAscii(e.dataFrame, 29.5));
+                    });
+                  var data = dataSet.map(function (e) {
+                      var updDate = UtcToIst(e.timestamp).toLocaleDateString();
+                      var updTime = UtcToIst(e.timestamp).toLocaleTimeString();
+                      var updDateTime = updDate + ", " + updTime;
+                      return updDateTime;
+                  });
+                  console.log(data);
+                    //high charts starting
+                   Highcharts.chart('container', {
+
+                       title: {
+                           text: 'Kadma water tank bottom'
+                       },
+
+                       subtitle: {
+                           text: 'smart city project'
+                       },
+                       xAxis: {
+                           categories:data
+                       },
+
+                       yAxis: {
+                           scrollbar: {
+                               enabled: true,
+                               showFull: false
+                           },
+                           title: {
+                               text: 'filled in feet'
+                           }
+                          
+                       },
+                       legend: {
+                           layout: 'vertical',
+                           align: 'right',
+                           verticalAlign: 'middle'
+                       },
+
+
+                       series: [{
+                           name: 'kadma bottom',
+                           data: labels
+                       }],
+
+                       responsive: {
+                           rules: [{
+                               condition: {
+                                   maxWidth: 500
+                               },
+                               chartOptions: {
+                                   legend: {
+                                       layout: 'horizontal',
+                                       align: 'center',
+                                       verticalAlign: 'bottom'
+                                   }
+                               }
+                           }]
+                       }
+
+                   });
+                    //high charts ending
+                }
+            };
+            xhttp.open("GET", "rest api of water tank", true);//nodes/ul
+            xhttp.setRequestHeader("Authorization", "BASIC dm==");//replace with orginal userid and password
+            xhttp.send();
+        }
+
+        //function to convert base 64 data to ascii 
+
+        //var data = base64toAscii("AA8OJAEA", 28.5)//base 64 data and total tank height from sensor to tank bottom
+        function base64toAscii(base64, max) {
+            var raw = atob(base64);
+            var HEX = '';
+            for (i = 0; i < raw.length; i++) {
+                var _hex = raw.charCodeAt(i).toString(16)
+                HEX += (_hex.length == 2 ? _hex : '0' + _hex);
+            }
+            var hex = HEX.substr(1, 1) + HEX.substr(3, 1) + HEX.substr(5, 1);
+            var inches = hex.toLowerCase().split('').reduce((result, ch) =>
+                result * 16 + '0123456789abcdefgh'.indexOf(ch), 0);
+            var feet = inches / 12; //data in feet
+            var filled = max - feet;
+            filled = filled.toFixed(2);
+            if (filled < 0)
+            {
+                filled = 1;
+            }
+            return filled;
+        }
+        function UtcToIst(data) {
+            var dt = new Date(data);
+            return dt;
+        }
+    </script>
+</body>
+</html>
