@@ -1,5 +1,6 @@
 getApi("E8E1E1000101032F");
-function getApi(deviceid) {
+function getApi() {
+    var deviceid=document.getElementById('Select').value;
     alert(deviceid);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -9,6 +10,7 @@ function getApi(deviceid) {
             $(document).ready(function () {
                 $('#example1').DataTable({
                     'processing': true,
+                    'bDestroy':true,
                      'language': {
                       'loadingRecords': '&nbsp;',
                        'processing': 'Loading...'
