@@ -31,3 +31,6 @@ admin lte dashboard(css,html , bootstrap)
 
 LNS - Lora network server - TCL (ORWISE)
 
+plugin needed for chrome - Allow-Control-Allow-Origin: *
+install the plugin and turn on the plugin (green color)
+
