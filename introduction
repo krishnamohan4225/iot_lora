@@ -1,4 +1,4 @@
-integrated development envirment tools
+integrated development environment tools
 visual studio 2017
 visula studio code 2017 (recommended)
 visual studio web develoer
@@ -17,7 +17,7 @@ dataformat - json format and xml (we are using json format)- api wil json respon
 authentication - basic - (BASIC dmlub2RrdW1hcjpQYXNzQDEyMw==)
 code -  xhttp.setRequestHeader("Authorization", "BASIC dmlub2RrdW1hcjpQYXNzQDEyMw==");
 
-decoding 
+decoding of water tank
 
 sensor data will come dataFrame node
 
