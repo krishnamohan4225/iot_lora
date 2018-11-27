@@ -11,7 +11,7 @@ tables, charts
 api https://data.com/rest/nodes/E8E1E1000101032F/payloads/ul/latest- latest data
 dashboard
 
-E8E1E1000101032F - waater tank - kadma - bottom - max ht 28.5 , overflow - 25.5 feet 
+E8E1E1000101032F - water tank - kadma - bottom - max ht 28.5 , overflow - 25.5 feet 
 
 dataformat - json format and xml (we are using json format)- api wil json response
 authentication - basic - (BASIC dmlub2RrdW1hcjpQYXNzQDEyMw==)
