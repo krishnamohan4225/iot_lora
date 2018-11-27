@@ -5,10 +5,10 @@ visual studio web develoer
 
 
 
-api - https://data.iot.tatacommunications.com/rest/nodes/E8E1E1000101032F/payloads/ul   - json list of array //get type
+api - https://data.com/rest/nodes/E8E1E1000101032F/payloads/ul   - json list of array //get type
 tables, charts
 
-api https://data.iot.tatacommunications.com/rest/nodes/E8E1E1000101032F/payloads/ul/latest- latest data
+api https://data.com/rest/nodes/E8E1E1000101032F/payloads/ul/latest- latest data
 dashboard
 
 E8E1E1000101032F - waater tank - kadma - bottom - max ht 28.5 , overflow - 25.5 feet 
