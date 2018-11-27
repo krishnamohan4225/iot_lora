@@ -1,0 +1,33 @@
+api - https://data.iot.tatacommunications.com/rest/nodes/E8E1E1000101032F/payloads/ul   - json list of array //get type
+tables, charts
+
+api https://data.iot.tatacommunications.com/rest/nodes/E8E1E1000101032F/payloads/ul/latest- latest data
+dashboard
+
+E8E1E1000101032F - waater tank - kadma - bottom - max ht 28.5 , overflow - 25.5 feet 
+
+dataformat - json format and xml (we are using json format)- api wil json response
+authentication - basic - (BASIC dmlub2RrdW1hcjpQYXNzQDEyMw==)
+code -  xhttp.setRequestHeader("Authorization", "BASIC dmlub2RrdW1hcjpQYXNzQDEyMw==");
+
+decoding 
+
+sensor data will come dataFrame node
+
+data - AA8IJAEA
+step 1 - base 64 to hexadecimal - 00 0f 08 24 01 00
+step 2 - take even position of 3 bytes - 00 0f 08  - 0f8
+step 3 - convert hex to decimal - 248 inches
+step 4 - convert inch to feet - 20.6667 feet
+step 5 - substract sensor data from max height - 28.5 - 20.66 = 8.0 feet (filled)
+step 6 - take 4 th byte and convert into dec- 24 - 36
+step 7 devide by 10 = 36/10= 3.6 voltage (battery ) //min = 3.5
+
+javascript - XMLhttprequerst object 
+jquery - jquery ajax
+angular js - http 
+
+admin lte dashboard(css,html , bootstrap)
+
+LNS - Lora network server - TCL (ORWISE)
+
