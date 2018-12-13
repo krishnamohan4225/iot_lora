@@ -57,7 +57,7 @@ function getApi() {
         }
 
     };
-    xhttp.open("GET", "https://data.iot.tatacommunications.com/rest/nodes/E8E1E1000101032F/payloads/ul", true);
+    xhttp.open("GET", "https://payloads/ul", true);
     xhttp.setRequestHeader("Authorization", "BASIC dmlub2RrdW1hcjpQYXNzQDEyMw==");
     xhttp.send();
 }
