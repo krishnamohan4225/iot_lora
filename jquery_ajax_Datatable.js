@@ -2,7 +2,7 @@ getApi();
 function getApi() {
     $("#loading").hide(4000);
     $.ajax({
-        url: 'https://data.iot.tatacommunications.com/rest/nodes/E8E1E1000101032F/payloads/ul',
+        url: 'https://payloads/ul',
         type: 'GET',
         data: {
           format: 'json'
