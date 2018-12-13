@@ -61,7 +61,7 @@ function getApi() {
 
     };
     xhttp.open("GET", "https://nodes/"+ deviceid+"/payloads/ul", true);
-    xhttp.setRequestHeader("Authorization", "BASIC dmlub2RrdW1hcjpQYXNzQDEyMw==");
+    xhttp.setRequestHeader("Authorization", "BASIC dmlub2==");
     xhttp.send();
 }
 
